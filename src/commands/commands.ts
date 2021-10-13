@@ -28,6 +28,16 @@ function action(event: Office.AddinCommands.Event) {
   event.completed();
 }
 
+function insertTemplate(event: Office.AddinCommands.Event) {
+  const htmlTemlpate = `<div><img src="https://loremflickr.com/cache/resized/65535_51377258275_023a2ab94b_320_240_nofilter.jpg"></img><div>`;
+  const options = { coercionType: 'html' }
+
+  Office.context.mailbox.item.body.setAsync(htmlTemlpate, options, (asyncResult) => {
+    console.log('setAsync performed', asyncResult)
+  })
+}
+
+
 function getGlobal() {
   return typeof self !== "undefined"
     ? self
@@ -42,3 +52,5 @@ const g = getGlobal() as any;
 
 // The add-in command functions need to be available in global scope
 g.action = action;
+
+g.insertTemplate = insertTemplate
